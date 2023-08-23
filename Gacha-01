@@ -1,0 +1,26 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+cp=np.zeros(100)
+x=np.array([i for i in range(1,101)])
+for i in range(0,50):
+    cp[i]=0.02
+for i in range(50,100):
+    cp[i]=cp[i-1]+0.02
+print(cp)
+
+rp=np.ones(100)
+rp[0]=cp[0]
+for i in range(1,100):
+    for j in range(0,i):
+        rp[i] = rp[i] * (1- cp[j])   #假设事件相互独立
+    rp[i] = rp[i] * cp[i]
+print(rp)
+
+sum=0
+for i in range(0,100):
+    sum+=rp[i]*(i+1)        #计算期望
+print(sum)
+a=np.where(rp==max(rp))
+print(max(rp))
+print(a)
